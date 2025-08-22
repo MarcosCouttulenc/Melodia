@@ -1,0 +1,16 @@
+name: melodia-tests
+services:
+  tests:
+    container_name: tests
+    image: tests:latest
+    env_file:
+      - .env
+    networks:
+      - testing_net
+
+
+networks:
+  testing_net:
+    external: true
+
+

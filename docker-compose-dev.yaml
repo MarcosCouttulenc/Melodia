@@ -9,11 +9,11 @@ services:
       - "${BACKEND_EXPOSED_PORT:-5000}:${BACKEND_DOCKER_PORT:-5000}"
     networks:
       - testing_net
+  
+
+    
 
 
 networks:
   testing_net:
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.25.125.0/24
+    external: true

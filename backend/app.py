@@ -1,6 +1,7 @@
 import os
 import logging
 import sys
+from flask import Flask
 
 # --- Configuración de Logging ---
 logging.basicConfig(
@@ -12,6 +13,15 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(module)s:%(lineno)d - %(message)s'
 )
 
-logging.info("Hello, World!")
-logging.info(f"Backend docker port: {os.environ.get('BACKEND_DOCKER_PORT', 'no port set')}")
-logging.info(f"Backend exported port: {os.environ.get('BACKEND_EXPOSED_PORT', 'no port set')}")
+app = Flask(__name__)
+
+@app.route("/")
+def hello_world():
+    logging.info("Hello World endpoint was called")
+    return "Hello, World!"
+
+if __name__ == "__main__":
+    port = int(os.getenv("BACKEND_DOCKER_PORT", 5000))
+    host = os.getenv("BACKEND_HOST", "0.0.0.0")
+    app.run(host=host, port=port)
+
